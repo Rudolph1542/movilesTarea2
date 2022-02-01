@@ -114,9 +114,6 @@ class _HomepageState extends State<Homepage> {
             child: TextField(
               controller: altura,
               keyboardType: TextInputType.number,
-              onTap: () {
-                x = Colors.green;
-              },
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Altura (cm)',
