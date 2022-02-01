@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -21,8 +22,8 @@ TextEditingController peso = TextEditingController();
 double alturanumber = 0.0;
 double pesonumber = 0.0;
 double imc = 0.0;
-bool genre = false;
-Color colormale = Colors.grey.shade300;
+bool genre = true;
+Color colormale = Colors.blue;
 Color colorfemale = Colors.grey.shade300;
 String idealimc = '';
 
@@ -126,38 +127,59 @@ class _HomepageState extends State<Homepage> {
                 style: TextButton.styleFrom(
                     primary: Colors.red, backgroundColor: Colors.grey[200]),
                 onPressed: () {
-                  alturanumber = double.parse(altura.text);
-                  pesonumber = double.parse(peso.text);
-                  imc = (pesonumber / alturanumber) / alturanumber;
-                  if (genre == false) {
-                    idealimc =
-                        '\nTabla del IMC para mujeres\n\nEdad      IMC ideal\n16-17     19-24\n18-18       19-24\n19-24     19-24\n25-34     20-25\n35-44     21-26\n45-54     22-27\n55-64     23-28\n65-90     25-30';
-                  } else {
-                    idealimc =
-                        '\nTabla del IMC para hombres\n\nEdad      IMC ideal\n16-16       19-24\n17-17       20-25\n18-18       20-25\n19-24     21-26\n25-34     22-27\n35-54     23-38\n55-64     24-29\n65-90     25-30';
-                  }
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Column(
-                            children: [
-                              Text(
-                                'Tu IMC es: ${imc.toStringAsFixed(2)}',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text('$idealimc')
+                  if (altura.text != '' && peso.text != '') {
+                    alturanumber = double.parse(altura.text);
+                    pesonumber = double.parse(peso.text);
+                    imc = (pesonumber / alturanumber) / alturanumber;
+                    if (genre == false) {
+                      idealimc =
+                          '\nTabla del IMC para mujeres\n\nEdad      IMC ideal\n16-17     19-24\n18-18       19-24\n19-24     19-24\n25-34     20-25\n35-44     21-26\n45-54     22-27\n55-64     23-28\n65-90     25-30';
+                    } else {
+                      idealimc =
+                          '\nTabla del IMC para hombres\n\nEdad      IMC ideal\n16-16       19-24\n17-17       20-25\n18-18       20-25\n19-24     21-26\n25-34     22-27\n35-54     23-38\n55-64     24-29\n65-90     25-30';
+                    }
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              children: [
+                                Text(
+                                  'Tu IMC es: ${imc.toStringAsFixed(2)}',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text('$idealimc')
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Aceptar');
+                                  },
+                                  child: Text('Aceptar')),
                             ],
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, 'Aceptar');
-                                },
-                                child: Text('Aceptar')),
-                          ],
-                        );
-                      });
+                          );
+                        });
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              children: [
+                                Text('Alguno de los campos está vacío')
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Aceptar');
+                                  },
+                                  child: Text('Aceptar')),
+                            ],
+                          );
+                        });
+                  }
                 },
                 child: Text(
                   'Calcular',
