@@ -13,7 +13,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Material App', home: Homepage());
+    return MaterialApp(
+      title: 'Material App',
+      theme: ThemeData(
+          colorScheme: ColorScheme(
+              primary: Colors.green,
+              primaryVariant: Colors.green,
+              secondary: Colors.green,
+              secondaryVariant: Colors.green,
+              surface: Colors.green,
+              background: Colors.green,
+              error: Colors.green,
+              onPrimary: Colors.white,
+              onSecondary: Colors.green,
+              onSurface: Colors.grey,
+              onBackground: Colors.green,
+              onError: Colors.green,
+              brightness: Brightness.light)),
+      home: Homepage(),
+    );
   }
 }
 
@@ -24,8 +42,9 @@ double pesonumber = 0.0;
 double imc = 0.0;
 bool genre = true;
 Color colormale = Colors.blue;
-Color colorfemale = Colors.grey.shade300;
+Color colorfemale = Colors.grey;
 String idealimc = '';
+Color x = Colors.grey.shade400;
 
 class Homepage extends StatefulWidget {
   const Homepage({
@@ -74,7 +93,7 @@ class _HomepageState extends State<Homepage> {
                   onPressed: () {
                     genre = true;
                     colormale = Colors.blue;
-                    colorfemale = Colors.grey.shade300;
+                    colorfemale = Colors.grey.shade400;
                     setState(() {});
                   },
                   icon: Icon(Icons.male),
@@ -83,7 +102,7 @@ class _HomepageState extends State<Homepage> {
                 IconButton(
                   onPressed: () {
                     genre = false;
-                    colormale = Colors.grey.shade300;
+                    colormale = Colors.grey.shade400;
                     colorfemale = Colors.pink;
                     setState(() {});
                   },
@@ -98,13 +117,17 @@ class _HomepageState extends State<Homepage> {
             child: TextField(
               controller: altura,
               keyboardType: TextInputType.number,
+              onTap: () {
+                x = Colors.green;
+              },
               decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2.0)),
                   border: OutlineInputBorder(),
                   labelText: 'Altura (cm)',
                   hintText: 'Ingresa tu altura',
-                  icon: Icon(Icons.square_foot)),
+                  icon: Icon(
+                    Icons.square_foot,
+                  ),
+                  focusColor: Colors.green),
             ),
           ),
           Padding(
@@ -113,8 +136,6 @@ class _HomepageState extends State<Homepage> {
               controller: peso,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2.0)),
                   border: OutlineInputBorder(),
                   labelText: 'Peso (cm)',
                   hintText: 'Ingresa tu peso',
@@ -124,8 +145,7 @@ class _HomepageState extends State<Homepage> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextButton(
-                style: TextButton.styleFrom(
-                    primary: Colors.red, backgroundColor: Colors.grey[200]),
+                style: TextButton.styleFrom(backgroundColor: Colors.grey[200]),
                 onPressed: () {
                   if (altura.text != '' && peso.text != '') {
                     alturanumber = double.parse(altura.text);
@@ -175,7 +195,10 @@ class _HomepageState extends State<Homepage> {
                                   onPressed: () {
                                     Navigator.pop(context, 'Aceptar');
                                   },
-                                  child: Text('Aceptar')),
+                                  child: Text(
+                                    'Aceptar',
+                                    style: TextStyle(color: Colors.black),
+                                  )),
                             ],
                           );
                         });
