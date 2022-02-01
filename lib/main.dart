@@ -59,21 +59,18 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Calcular IMC'),
-          backgroundColor: Colors.green[400],
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                peso.clear();
-                altura.clear();
-              },
-            )
-          ]),
+      appBar: AppBar(title: Text('Calcular IMC'), actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            peso.clear();
+            altura.clear();
+          },
+        )
+      ]),
       body: Column(
         children: [
           Padding(
